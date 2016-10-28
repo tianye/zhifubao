@@ -33,7 +33,14 @@ class Http
         $sign                = (new Sign())->generateSign($biz_content);
         $biz_content['sign'] = $sign;
 
-        $rest = self::$type['curl_type'](Config::$URL, $biz_content, $http);
+        switch ($type['curl_type']) {
+            case 'post':
+                $rest = self::post(Config::$URL, $biz_content, $http);
+                break;
+            case 'get':
+                $rest = self::get(Config::$URL, $biz_content, $http);
+                break;
+        }
 
         if (isset($rest['error_response'])) {
             if ((new Sign())->verifySign(json_encode($rest['error_response'], JSON_UNESCAPED_UNICODE), $rest['sign'])) {

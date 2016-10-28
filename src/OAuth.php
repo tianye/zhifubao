@@ -54,13 +54,19 @@ class OAuth extends Core
      *
      * @return array|bool
      */
-    public function authBase($to, $state)
+    public function authBase($to = '', $state = '')
     {
-        if (!$this->checkEmpty($_GET['auth_code'])) {
-            $this->redirect($to, 'auth_code', $state);
+        if (isset($_GET['auth_code'])) {
+            $code = $_GET['auth_code'];
+        } else {
+            $code = '';
         }
 
-        $permission = $this->getAccessPermission($_GET['auth_code']);
+        if ($this->checkEmpty($code)) {
+            $this->redirect($to, 'auth_base', $state);
+        }
+
+        $permission = $this->getAccessPermission($code);
 
         return $permission;
     }
@@ -73,7 +79,7 @@ class OAuth extends Core
      *
      * @return array|bool
      */
-    public function authUserInfo($to, $state)
+    public function authUserInfo($to = '', $state = '')
     {
         if (!$this->checkEmpty($_GET['auth_code'])) {
             $this->redirect($to, 'auth_userinfo', $state);
