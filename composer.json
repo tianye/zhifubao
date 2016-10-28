@@ -1,0 +1,20 @@
+{
+    "name": "tianye/alisdk",
+    "description": "支付宝 阿里 SDK",
+    "authors": [
+        {
+            "name": "tianye",
+            "email": "3217834@qq.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.5",
+        "guzzlehttp/guzzle": "~6.2"
+    },
+    "autoload": {
+        "psr-4": {
+            "AliSdk\\": "src/"
+        },
+        "files": []
+    }
+}
