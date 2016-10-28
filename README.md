@@ -3,7 +3,6 @@
 
 ```
 composer require tianye/alisdk ~1.0
-
 ```
 
 初始化配置
