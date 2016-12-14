@@ -30,7 +30,7 @@ class OAuth extends Core
             'state'        => $state,
         ];
 
-        return self::API_URL . '?' . http_build_query($queryStr) . '#alipay_redirect';
+        return self::API_URL . '?' . http_build_query($queryStr);
     }
 
     /**
