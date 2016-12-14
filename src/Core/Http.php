@@ -74,29 +74,17 @@ class Http
             } else {
                 $response = $http->get($url, ['body' => $request]);
             }
-        } catch (ConnectException $e) {
-            $response['err_code']               = 'FAIL';
-            $response['err_msg']                = 'Connect 错误';
-            $response['body']['exception_code'] = $e->getCode();
-            $response['body']['exception_msg']  = $e->getMessage();
-        } catch (RequestException $e) {
-            $response['err_code']               = 'FAIL';
-            $response['err_msg']                = 'Request 错误';
-            $response['body']['exception_code'] = $e->getCode();
-            $response['body']['exception_msg']  = $e->getMessage();
-        } catch (RuntimeException $e) {
-            $response['err_code']               = 'FAIL';
-            $response['err_msg']                = 'Runtime 错误';
-            $response['body']['exception_code'] = $e->getCode();
-            $response['body']['exception_msg']  = $e->getMessage();
-        } catch (\Exception $e) {
-            $response['err_code']               = 'FAIL';
-            $response['err_msg']                = '未知 错误';
-            $response['body']['exception_code'] = $e->getCode();
-            $response['body']['exception_msg']  = $e->getMessage();
-        }
 
-        $response = self::packData($response->getBody()->getContents());
+            $response = self::packData($response->getBody()->getContents());
+        } catch (ConnectException $e) {
+            $response = ['err_code' => 'FAIL', 'err_msg' => 'Connect 错误', 'body' => ['exception_code' => $e->getCode(), 'exception_msg' => $e->getMessage()]];
+        } catch (RequestException $e) {
+            $response = ['err_code' => 'FAIL', 'err_msg' => 'Request 错误', 'body' => ['exception_code' => $e->getCode(), 'exception_msg' => $e->getMessage()]];
+        } catch (RuntimeException $e) {
+            $response = ['err_code' => 'FAIL', 'err_msg' => 'Runtime 错误', 'body' => ['exception_code' => $e->getCode(), 'exception_msg' => $e->getMessage()]];
+        } catch (\Exception $e) {
+            $response = ['err_code' => 'FAIL', 'err_msg' => '未知 错误', 'body' => ['exception_code' => $e->getCode(), 'exception_msg' => $e->getMessage()]];
+        }
 
         return $response;
     }
@@ -109,29 +97,17 @@ class Http
             } else {
                 $response = $http->post($url, ['body' => $request]);
             }
-        } catch (ConnectException $e) {
-            $response['err_code']               = 'FAIL';
-            $response['err_msg']                = 'Connect 错误';
-            $response['body']['exception_code'] = $e->getCode();
-            $response['body']['exception_msg']  = $e->getMessage();
-        } catch (RequestException $e) {
-            $response['err_code']               = 'FAIL';
-            $response['err_msg']                = 'Request 错误';
-            $response['body']['exception_code'] = $e->getCode();
-            $response['body']['exception_msg']  = $e->getMessage();
-        } catch (RuntimeException $e) {
-            $response['err_code']               = 'FAIL';
-            $response['err_msg']                = 'Runtime 错误';
-            $response['body']['exception_code'] = $e->getCode();
-            $response['body']['exception_msg']  = $e->getMessage();
-        } catch (\Exception $e) {
-            $response['err_code']               = 'FAIL';
-            $response['err_msg']                = '未知 错误';
-            $response['body']['exception_code'] = $e->getCode();
-            $response['body']['exception_msg']  = $e->getMessage();
-        }
 
-        $response = self::packData($response->getBody()->getContents());
+            $response = self::packData($response->getBody()->getContents());
+        } catch (ConnectException $e) {
+            $response = ['err_code' => 'FAIL', 'err_msg' => 'Connect 错误', 'body' => ['exception_code' => $e->getCode(), 'exception_msg' => $e->getMessage()]];
+        } catch (RequestException $e) {
+            $response = ['err_code' => 'FAIL', 'err_msg' => 'Request 错误', 'body' => ['exception_code' => $e->getCode(), 'exception_msg' => $e->getMessage()]];
+        } catch (RuntimeException $e) {
+            $response = ['err_code' => 'FAIL', 'err_msg' => 'Runtime 错误', 'body' => ['exception_code' => $e->getCode(), 'exception_msg' => $e->getMessage()]];
+        } catch (\Exception $e) {
+            $response = ['err_code' => 'FAIL', 'err_msg' => '未知 错误', 'body' => ['exception_code' => $e->getCode(), 'exception_msg' => $e->getMessage()]];
+        }
 
         return $response;
     }
