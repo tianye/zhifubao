@@ -4,6 +4,8 @@ namespace AliSdk\Core;
 use AliSdk\OAuth;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ConnectException;
+use GuzzleHttp\Exception\RequestException;
+use RuntimeException;
 
 class Http
 {
@@ -67,9 +69,31 @@ class Http
     public static function get($url, $request, Client $http)
     {
         try {
-            $response = $http->get($url, ['form_params' => $request]);
+            if (version_compare(Client::VERSION, '6.0.0', 'ge')) {
+                $response = $http->get($url, ['form_params' => $request]);
+            } else {
+                $response = $http->get($url, ['body' => $request]);
+            }
         } catch (ConnectException $e) {
-            exit($e->getMessage());
+            $response['err_code']               = 'FAIL';
+            $response['err_msg']                = 'Connect 错误';
+            $response['body']['exception_code'] = $e->getCode();
+            $response['body']['exception_msg']  = $e->getMessage();
+        } catch (RequestException $e) {
+            $response['err_code']               = 'FAIL';
+            $response['err_msg']                = 'Request 错误';
+            $response['body']['exception_code'] = $e->getCode();
+            $response['body']['exception_msg']  = $e->getMessage();
+        } catch (RuntimeException $e) {
+            $response['err_code']               = 'FAIL';
+            $response['err_msg']                = 'Runtime 错误';
+            $response['body']['exception_code'] = $e->getCode();
+            $response['body']['exception_msg']  = $e->getMessage();
+        } catch (\Exception $e) {
+            $response['err_code']               = 'FAIL';
+            $response['err_msg']                = '未知 错误';
+            $response['body']['exception_code'] = $e->getCode();
+            $response['body']['exception_msg']  = $e->getMessage();
         }
 
         $response = self::packData($response->getBody()->getContents());
@@ -79,7 +103,34 @@ class Http
 
     public static function post($url, $request, Client $http)
     {
-        $response = $http->post($url, ['form_params' => $request]);
+        try {
+            if (version_compare(Client::VERSION, '6.0.0', 'ge')) {
+                $response = $http->post($url, ['form_params' => $request]);
+            } else {
+                $response = $http->post($url, ['body' => $request]);
+            }
+        } catch (ConnectException $e) {
+            $response['err_code']               = 'FAIL';
+            $response['err_msg']                = 'Connect 错误';
+            $response['body']['exception_code'] = $e->getCode();
+            $response['body']['exception_msg']  = $e->getMessage();
+        } catch (RequestException $e) {
+            $response['err_code']               = 'FAIL';
+            $response['err_msg']                = 'Request 错误';
+            $response['body']['exception_code'] = $e->getCode();
+            $response['body']['exception_msg']  = $e->getMessage();
+        } catch (RuntimeException $e) {
+            $response['err_code']               = 'FAIL';
+            $response['err_msg']                = 'Runtime 错误';
+            $response['body']['exception_code'] = $e->getCode();
+            $response['body']['exception_msg']  = $e->getMessage();
+        } catch (\Exception $e) {
+            $response['err_code']               = 'FAIL';
+            $response['err_msg']                = '未知 错误';
+            $response['body']['exception_code'] = $e->getCode();
+            $response['body']['exception_msg']  = $e->getMessage();
+        }
+
         $response = self::packData($response->getBody()->getContents());
 
         return $response;
