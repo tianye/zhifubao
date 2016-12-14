@@ -1,7 +1,7 @@
 # zhifubao
 支付宝接口
 
-[![Total Downloads](https://poser.pugx.org/phpunit/phpunit/downloads)](https://packagist.org/packages/tianye/alisdk)
+[![Total Downloads](https://poser.pugx.org/tianye/alisdk/downloads)](https://packagist.org/packages/tianye/alisdk)
 
 ```
 composer require tianye/alisdk ~1.0
