@@ -4,7 +4,9 @@ require '../vendor/autoload.php';
 /** 两种传入 公钥私钥的方式都可以 1.为文件方式 2.直接读取内容 */
 
 /** appid 服务窗id , openssl生成的私钥 公钥要在ali 后台设置  , 阿里生成的公钥 要下载下来 生成pem 文件 */
-//\AliSdk\Core\Config::init('2016010401061932', '../Key/rsa_private_key_pkcs8.pem', '../Key/rsa_public_ali_key.pem');
+\AliSdk\Core\Config::init('2016010401061932', '../Key/rsa_private_key_pkcs8.pem', '../Key/rsa_public_ali_key.pem');
+
+/** 这个是直接把证书里面的 公钥 私钥 拿出来用 两种初始化方式选择其中一个使用即可*/
 
 //\AliSdk\Core\Config::init('2016010401061932', '', '', 'MIICdwIBADANBgkqhkiG9w0BAQEFAASCAmEwggJdAgEAAoGBANnGHhgzd/9AjXKx
 //HDbfCdyM12zqOXpWPjQ/enTJckMHUNZGkKmjB1J3gWrKF3UhMH4Hrs1+KnWh87g/
