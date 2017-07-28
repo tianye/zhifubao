@@ -1,4 +1,5 @@
 <?php
+
 namespace AliSdk\Core;
 
 use AliSdk\OAuth;
@@ -32,7 +33,7 @@ class Http
         }
 
         $biz_content         = array_merge($biz_content, $sign_info);
-        $sign                = (new Sign())->generateSign($biz_content);
+        $sign                = (new Sign())->generateSign($biz_content, Config::$sign_type);
         $biz_content['sign'] = $sign;
 
         switch ($type['curl_type']) {
@@ -45,7 +46,7 @@ class Http
         }
 
         if (isset($rest['error_response'])) {
-            if ((new Sign())->verifySign(json_encode($rest['error_response'], JSON_UNESCAPED_UNICODE), $rest['sign'])) {
+            if ((new Sign())->verifySign(json_encode($rest['error_response'], JSON_UNESCAPED_UNICODE), $rest['sign'], Config::$sign_type)) {
                 return $rest['error_response'];
             } else {
                 exit('签名验证失败');
@@ -55,7 +56,7 @@ class Http
             $interface_name = str_replace('.', '_', $type['interface_type']) . '_response';
             $not_sign       = [OAuth::ALIPAY_USER_USERINFO_SHARE];
             if (!in_array($type['interface_type'], $not_sign)) {
-                if ((new Sign())->verifySign(json_encode($rest[$interface_name], JSON_UNESCAPED_UNICODE), $rest['sign'])) {
+                if ((new Sign())->verifySign(json_encode($rest[$interface_name], JSON_UNESCAPED_UNICODE), $rest['sign'], Config::$sign_type)) {
                     return $rest[$interface_name];
                 } else {
                     exit('签名验证失败');

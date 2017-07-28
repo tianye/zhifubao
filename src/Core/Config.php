@@ -1,4 +1,5 @@
 <?php
+
 namespace AliSdk\Core;
 
 use AliSdk\Exception\AliSdkException;
@@ -26,7 +27,7 @@ class Config
     static $sign_type = 'RSA';
     static $version   = '1.0';
 
-    static function init($appid = '', $rsaPrivateKeyFilePath = '', $rsaPublicKeyFilePath = '', $rsaPrivateKey = '', $rsaPublicKey = '', $url = 'https://openapi.alipay.com/gateway.do')
+    static function init($appid = '', $rsaPrivateKeyFilePath = '', $rsaPublicKeyFilePath = '', $rsaPrivateKey = '', $rsaPublicKey = '', $url = 'https://openapi.alipay.com/gateway.do', $sign_type = 'RSA')
     {
 
         self::$appid = $appid;
@@ -35,6 +36,7 @@ class Config
         self::$rsaPublicKeyFilePath  = $rsaPublicKeyFilePath;
         self::$rsaPrivateKey         = $rsaPrivateKey;
         self::$rsaPublicKey          = $rsaPublicKey;
+        self::$sign_type             = $sign_type;
 
         try {
             if (empty(self::$appid)) {

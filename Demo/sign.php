@@ -1,6 +1,7 @@
 <?php
 require '../vendor/autoload.php';
 
+use AliSdk\Core\Config;
 use AliSdk\Core\Sign;
 
 /**
@@ -15,7 +16,7 @@ function codeGetId($code)
     $data_info = array_merge($data, $sign_info);
 
     $Sign        = new Sign('./rsa_private_key_pkcs8.pem', './rsa_public_ali_key.pem');
-    $sign_return = $Sign->generateSign($data_info);
+    $sign_return = $Sign->generateSign($data_info, Config::$sign_type);
 
     $data_info['sign'] = $sign_return;
 
@@ -30,7 +31,7 @@ function idGetMsg($code, $auth_token)
     $data_info = array_merge($data, $sign_info);
 
     $Sign        = new Sign('./rsa_private_key_pkcs8.pem', './rsa_public_ali_key.pem');
-    $sign_return = $Sign->generateSign($data_info);
+    $sign_return = $Sign->generateSign($data_info, Config::$sign_type);
 
     $data_info['sign'] = $sign_return;
 
@@ -62,7 +63,7 @@ function verify($json, $interface_name)
 //    var_dump($signData);
     \AliSdk\Core\Config::init('2016010401061932', '../Key/rsa_private_key_pkcs8.pem', '../Key/rsa_public_ali_key.pem');
 
-    $verify = (new Sign())->verifySign(mb_convert_encoding($signData['signSourceData'], 'utf-8'), $signData['sign']);
+    $verify = (new Sign())->verifySign(mb_convert_encoding($signData['signSourceData'], 'utf-8'), $signData['sign'], Config::$sign_type);
 
     print_r($verify);
 }
